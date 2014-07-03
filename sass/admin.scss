@@ -1,0 +1,20 @@
+.tp-pt-order ul {
+	margin: 10px 0px 0px 0px;
+
+	.tp-pt-order li {
+		padding: 8px;
+		background: #f7f7f7;
+		border: 1px solid #ccc;
+		cursor: pointer;
+
+		&:hover {
+			background: #EEE;
+		}
+
+		span.post-state {
+			font-weight: bold;
+		}
+
+	}
+
+}
