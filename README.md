@@ -7,7 +7,7 @@ Order posts in any post type. Made for WordPress.
 
 - Allows admins to order posts from any post type in a separate "Order" menu
 - Automatically orders posts
-- Order by taxonomy term
+- Order by taxonomy
 
 ## Usage
 
