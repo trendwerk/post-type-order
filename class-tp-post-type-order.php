@@ -10,6 +10,7 @@ class TP_Post_Type_order {
 	var $auto = true; //Automatically order posts
 	
 	function __construct() {
+		add_action( 'plugins_loaded', array( $this, 'localization' ) );
 		add_action('init',array($this,'init'),11);
 		add_action('admin_menu',array($this,'add_menu'));
 		add_action('admin_enqueue_scripts',array($this,'add_scripts'));
@@ -18,13 +19,20 @@ class TP_Post_Type_order {
 		if( $this->auto )
 			add_action('pre_get_posts',array($this,'auto'),1);
 	}
+
+	/**
+	 * Load localization
+	 */
+	function localization() {
+		load_muplugin_textdomain( 'pt-order', dirname( plugin_basename( __FILE__ ) ) . '/assets/lang/' );
+	}
 	
 	/**
 	 * Scripts
 	 */
 	function add_scripts() {
-		wp_enqueue_script('tp-pt-order',get_stylesheet_directory_uri().'/assets/plugins/post-type-order/js/PTOrder.js',array('jquery','jquery-ui-sortable'));
-		wp_enqueue_style('tp-pt-order',get_stylesheet_directory_uri().'/assets/plugins/post-type-order/sass/admin.css');
+		wp_enqueue_script( 'tp-pt-order', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery', 'jquery-ui-sortable' ) );
+		wp_enqueue_style( 'tp-pt-order', plugins_url( 'assets/sass/admin.css', __FILE__ ) );
 	}
 	
 	/**
@@ -52,7 +60,7 @@ class TP_Post_Type_order {
 	function add_menu() {
 		if($this->post_types) :
 			foreach($this->post_types as $post_type) :
-				add_submenu_page('edit.php?post_type='.$post_type,__('Order','tp'),__('Order','tp'),'edit_posts','order-'.$post_type,array($this,'manage'));
+				add_submenu_page('edit.php?post_type='.$post_type,__('Order','pt-order'),__('Order','pt-order'),'edit_posts','order-'.$post_type,array($this,'manage'));
 			endforeach;
 		endif;
 	}
@@ -71,7 +79,7 @@ class TP_Post_Type_order {
 
 		<div class="wrap">
 			<div class="icon32" id="icon-page"><br /></div>
-			<h2><?php _e('Order','tp'); ?></h2>
+			<h2><?php _e('Order','pt-order'); ?></h2>
 			
 			<?php if( ! isset( $terms ) ) { //Normal sorting ?>
 				<div class="tp-pt-order">
