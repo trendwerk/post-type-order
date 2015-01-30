@@ -2,6 +2,13 @@
 /**
  * Plugin Name: Post type order
  * Description: Order posts in any post type.
+ *
+ * Plugin URI: https://github.com/trendwerk/post-type-order
+ * 
+ * Author: Trendwerk
+ * Author URI: https://github.com/trendwerk
+ * 
+ * Version: 1.0.0
  */
 
 class TP_Post_Type_order {
