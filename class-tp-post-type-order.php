@@ -8,7 +8,7 @@
  * Author: Trendwerk
  * Author URI: https://github.com/trendwerk
  * 
- * Version: 1.0.1
+ * Version: 1.0.0
  */
 
 class TP_Post_Type_order {
@@ -221,7 +221,7 @@ class TP_Post_Type_order {
 	 */
 	
 	function auto($query) {
-		if( in_array( $query->get( 'post_type' ), $this->post_types ) && ! isset( $this->taxonomies[ $query->get( 'post_type' ) ] ) && !isset( $query->query['orderby'] ) ) {
+		if( in_array( $query->get( 'post_type' ), $this->post_types ) && ! isset( $this->taxonomies[ $query->get( 'post_type' ) ] ) ) {
 
 				$query->set( 'orderby', 'menu_order' );
 				$query->set( 'order', 'ASC' );
