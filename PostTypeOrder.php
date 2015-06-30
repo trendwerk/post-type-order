@@ -17,8 +17,6 @@ class PostTypeOrder
 	var $post_types = array();
 	var $taxonomies = array();
 
-	var $auto = true;
-
 	function __construct()
 	{
 		add_action('plugins_loaded', array($this, 'localization'));
@@ -26,10 +24,6 @@ class PostTypeOrder
 		add_action('admin_menu',array($this,'addMenu'));
 		add_action('admin_enqueue_scripts',array($this,'addScripts'));
 		add_action('wp_ajax_tp_pt_order',array($this,'order'));
-
-		if($this->auto){
-			add_action('pre_get_posts',array($this,'auto'),1);
-		}
 	}
 
 	/**
@@ -263,17 +257,6 @@ class PostTypeOrder
 		}
 
 		die();
-	}
-
-	/**
-	 * Do the ordering automatically
-	 */
-	function auto($query)
-	{
-		if(in_array($query->get('post_type'), $this->post_types) && ! isset($this->taxonomies[$query->get('post_type')]) && !isset($query->query['orderby'])){
-			$query->set('orderby', 'menu_order');
-			$query->set('order', 'ASC');
-		}
 	}
 
 } new PostTypeOrder;
