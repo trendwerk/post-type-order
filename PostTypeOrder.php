@@ -135,7 +135,7 @@ class PostTypeOrder
 		);
 		$args = wp_parse_args($args,$defaults);
 
-		$posts = new WP_Query($args);
+		$posts = new \WP_Query($args);
 		if($posts->have_posts()){
 			?>
 

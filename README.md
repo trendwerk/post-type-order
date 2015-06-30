@@ -41,7 +41,7 @@ $args = array(
 $query = new WP_Query( $args );
 ```
 
-Or set the 'orderby' and 'order' arguments globally. You probably want to use some conditional statements to only set these arguments on particular pages.
+Or set the 'orderby' and 'order' arguments globally. You probably want to use some conditional statements to only set these arguments on particular pages. For example:
 
 ```php
 $query->set('orderby', 'menu_order');
