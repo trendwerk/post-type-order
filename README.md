@@ -12,13 +12,13 @@ Order posts in any post type. Made for WordPress.
 ## Installation
 If you're using Composer to manage WordPress, add this plugin to your project's dependencies. Run:
 ```sh
-composer require trendwerk/post-type-order 1.0.1
+composer require trendwerk/post-type-order 2.0.0
 ```
 
 Or manually add it to your `composer.json`:
 ```json
 "require": {
-	"trendwerk/post-type-order": "1.0.1"
+	"trendwerk/post-type-order": "2.0.0"
 },
 ```
 
@@ -26,10 +26,29 @@ Or manually add it to your `composer.json`:
 
 ### Step 1
 Add the post type support 'order' to any post type
-	
+
 	'supports' => array( 'title', 'editor', 'revisions', 'order' )
 
-### Step 2 (optional)
+### Step 2
+Add 'orderby' and 'order' arguments to your custom loop.
+
+```php
+$args = array(
+	'post_type' => $post_type,
+	'orderby'   => 'menu_order',
+	'order'     => 'ASC'
+);
+$query = new WP_Query( $args );
+```
+
+Or set the 'orderby' and 'order' arguments globally. You probably want to use some conditional statements to only set these arguments on particular pages.
+
+```php
+$query->set('orderby', 'menu_order');
+$query->set('order', 'ASC');
+```
+
+### Step 3 (optional)
 You can divide the post type ordering by taxonomy
 
 ```php
@@ -48,5 +67,5 @@ $posts = new WP_Query( array(
 ) );
 ```
 
-### Step 3
+### Step 4
 Order up!
