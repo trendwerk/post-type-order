@@ -93,43 +93,55 @@ class PostTypeOrder
         }
         ?>
 
-       <div class="wrap">
-         <div class="icon32" id="icon-page"><br /></div>
-         <h2><?php _e('Order', 'pt-order'); ?></h2>
+        <div class="wrap">
+
+            <div class="icon32" id="icon-page"><br /></div>
+
+            <h2><?php _e('Order', 'pt-order'); ?></h2>
 
             <?php
-            if (!isset($terms)) {
-            /**
-             * Normal sorting
-             */
+                if (!isset($terms)) {
+                /**
+                * Normal sorting
+                */
             ?>
-            <div class="tp-pt-order">
-                <?php $this->displayPosts(array('post_type' => $post_type,'post_parent' => 0)); ?>
-            </div>
+            
+                <div class="tp-pt-order">
+                    <?php $this->displayPosts(array('post_type' => $post_type,'post_parent' => 0)); ?>
+                </div>
+
             <?php
-            } else {
-            /**
-             * Sort by taxonomy
-             */
+                } else {
+                /**
+                * Sort by taxonomy
+                */
             ?>
-            <div class="tp-pt-order" data-taxonomy="<?php echo $taxonomy; ?>">
-                <?php foreach ($terms as $term) { ?>
-                  <div class="tp-pt-order-taxonomy" data-term="<?php echo $term->term_id; ?>">
-                     <h3><?php echo $term->name; ?></h3>
-                        <?php
-                            $this->displayPosts(array(
-                                'post_type' => $post_type,
-                                'post__in'  => $this->getPosts($term, $taxonomy, $post_type),
-                                'orderby'   => 'post__in'
-                            ));
-                        ?>
-                  </div>
-                <?php
-} ?>
-            </div>
-            <?php
-            } ?>
-       </div>
+
+                <div class="tp-pt-order" data-taxonomy="<?php echo $taxonomy; ?>">
+
+                    <?php foreach ($terms as $term) { ?>
+
+                        <div class="tp-pt-order-taxonomy" data-term="<?php echo $term->term_id; ?>">
+
+                            <h3><?php echo $term->name; ?></h3>
+
+                            <?php
+                                $this->displayPosts(array(
+                                    'post_type' => $post_type,
+                                    'post__in'  => $this->getPosts($term, $taxonomy, $post_type),
+                                    'orderby'   => 'post__in'
+                                ));
+                            ?>
+
+                        </div>
+
+                    <?php } ?>
+
+                </div>
+
+            <?php } ?>
+
+        </div>
 
         <?php
     }

@@ -13,13 +13,18 @@
 namespace Trendwerk\PostTypeOrder;
 
 /**
- * Set plugin path
+ * Define plugin url
  */
-define('TW_PTO_PLUGIN_PATH', plugins_url('', __FILE__));
+if (! defined('TW_PTO_PLUGIN_PATH')) {
+    define('TW_PTO_PLUGIN_PATH', plugins_url('', __FILE__));
+}
 
 /**
- * Initialize plugin
+ * Include autoloader
  */
-include_once(__DIR__ . '/assets/includes/PostTypeOrder.php');
+include_once('assets/includes/autoload.php');
 
+/**
+ * Instantiate classes
+ */
 new PostTypeOrder;
