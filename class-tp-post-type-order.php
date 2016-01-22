@@ -93,14 +93,27 @@ class TP_Post_Type_order {
 					<?php $this->display_posts(array('post_type' => $post_type,'post_parent' => 0)); ?>
 				</div>
 			<?php } else { //Sort by taxonomy ?>
+
 				<div class="tp-pt-order" data-taxonomy="<?php echo $taxonomy; ?>">
-					<?php foreach($terms as $term) : ?>
-						<div class="tp-pt-order-taxonomy" data-term="<?php echo $term->term_id; ?>">
-							<h3><?php echo $term->name; ?></h3>
-							<?php $this->display_posts(array('post_type' => $post_type, 'post__in' => $this->get_posts($term,$taxonomy,$post_type), 'orderby' => 'post__in')); ?>
-						</div>
-					<?php endforeach; ?>
+					<?php
+						foreach($terms as $term) {
+							$termPosts = $this->get_posts($term, $taxonomy, $post_type);
+
+							if (count($termPosts) == 0) {
+								continue;
+							}
+							?>
+
+							<div class="tp-pt-order-taxonomy" data-term="<?php echo $term->term_id; ?>">
+								<h3><?php echo $term->name; ?></h3>
+								<?php $this->display_posts(array('post_type' => $post_type, 'post__in' => $termPosts, 'orderby' => 'post__in')); ?>
+							</div>
+
+							<?php 
+						}
+					?>
 				</div>
+
 			<?php } ?>
 		</div>
 
@@ -153,10 +166,15 @@ class TP_Post_Type_order {
 		
 		//Get all posts from this term (in case some haven't been saved to the order yet)
 		$all_posts = get_posts(array(
-			'post_type'   => $post_type,
-			'post_parent' => 0,
-			'numberposts' => -1,
-			$taxonomy     => $term->slug
+			'post_type'        => $post_type,
+			'post_parent'      => 0,
+			'numberposts'      => -1,
+			'tax_query'        => array(
+				array(
+					'taxonomy' => $taxonomy,
+					'terms'    => (int) $term->term_id,
+				),
+			),
 		));
 		
 		//Add posts at the bottom that aren't ordered yet
