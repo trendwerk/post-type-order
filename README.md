@@ -10,16 +10,8 @@ Order posts in any post type. Made for WordPress.
 - Divide ordering by taxonomy
 
 ## Installation
-If you're using Composer to manage WordPress, add this plugin to your project's dependencies. Run:
 ```sh
-composer require trendwerk/post-type-order 1.0.1
-```
-
-Or manually add it to your `composer.json`:
-```json
-"require": {
-	"trendwerk/post-type-order": "1.0.1"
-},
+composer require trendwerk/post-type-order
 ```
 
 ## Usage
