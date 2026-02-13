@@ -113,7 +113,7 @@ class TP_Post_Type_order
 					foreach ($terms as $term) {
 						$termPosts = $this->get_posts($term, $taxonomy, $post_type);
 
-						if (count($termPosts) == 0) {
+						if (empty($termPosts)) {
 							continue;
 						}
 						?>
@@ -184,6 +184,9 @@ class TP_Post_Type_order
 	function get_posts($term, $taxonomy, $post_type)
 	{
 		$pt_order = get_option('tp-pt-order'); //Get order
+		if (!is_array($pt_order)) {
+			$pt_order = array();
+		}
 
 		//Get all posts from this term (in case some haven't been saved to the order yet)
 		$all_posts = get_posts(array(
@@ -223,7 +226,9 @@ class TP_Post_Type_order
 		//Return array of ordered post IDs and save new posts at bottom
 		update_option('tp-pt-order', $pt_order);
 
-		return $pt_order[$term->term_id];
+		return isset($pt_order[$term->term_id]) && is_array($pt_order[$term->term_id])
+			? $pt_order[$term->term_id]
+			: array();
 	}
 
 	/**
